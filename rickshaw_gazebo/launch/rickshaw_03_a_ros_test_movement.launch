@@ -1,0 +1,38 @@
+<launch>
+
+  <!-- Load the URDF model into the parameter server -->
+  <param name="robot_description" textfile="$(find rickshaw_description)/urdf/rickshaw_02_b_free.urdf"/>
+
+  <!-- Spawn a urdf in Gazebo, taking the description from the parameter server -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -model rickshaw_02_b_free -x 0 -y 0 -z 1.8" />
+
+  <!-- Start FSM nodes -->
+  <!-- leg FSMs -->
+  <!-- front left leg -->
+  <node name="frontleftleg" pkg="rickshaw_description" type="rickshaw_two_dof_leg_fsm_node.py" output="screen" launch-prefix="xterm -e"
+        args="-side left -thigh_len 0.433 -shin_len 0.5455 -num_traj_pts 15
+              -from_hip hip_to_leftleg -to_hip leftleg_to_hip
+              -from_knee knee_to_leftleg -to_knee leftleg_to_knee
+              -from_master to_frontleftleg -to_master from_frontleftleg" />
+  <!-- front right leg -->
+  <node name="frontrightleg" pkg="rickshaw_description" type="rickshaw_two_dof_leg_fsm_node.py" output="screen" launch-prefix="xterm -e"
+        args="-side right -thigh_len 0.433 -shin_len 0.5455 -num_traj_pts 15
+              -from_hip hip_to_rightleg -to_hip rightleg_to_hip
+              -from_knee knee_to_rightleg -to_knee rightleg_to_knee
+              -from_master to_frontrightleg -to_master from_frontrightleg" />
+
+  <!-- movement -->
+  <node name="movement" pkg="rickshaw_description" type="rickshaw_movement_fsm_node.py" output="screen" launch-prefix="xterm -e"
+        args="-thigh_len 0.433 -shin_len 0.5455 -from_master_gait gait_params
+              -from_master_direction b -from_leftleg from_frontleftleg
+              -to_leftleg to_frontleftleg -from_rightleg from_frontrightleg
+              -to_rightleg to_frontrightleg" />
+
+  <!-- gait params -->
+  <node name="gait" pkg="rickshaw_description" type="rickshaw_gait_fsm_node.py" output="screen" launch-prefix="xterm -e"
+        args="-thigh_len 0.433 -shin_len 0.5455 -from_master gait_transition
+              -gait_params gait_params" />
+
+  <node name="smach_viewer_1" pkg="smach_viewer" type="smach_viewer.py" launch-prefix="xterm -e" />
+</launch>

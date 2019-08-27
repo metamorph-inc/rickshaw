@@ -1,0 +1,479 @@
+<?xml version="1.0"?>
+<robot name="rickshaw_02_a_fixed.urdf">
+
+  <!-- DEBUGGING PURPOSES ONLY -->
+  <link name="world"/>
+  <joint name="world_to_front_section_link" type="fixed">
+    <parent link="world"/>
+    <child link="front_section_link"/>
+  </joint>
+
+  <!-- front 2-legged section -->
+  <link name="front_section_link">
+    <visual>
+      <geometry>
+        <box size="0.25 1 0.25"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.25 1 0.25"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.088542" iyy="0.010417" izz="0.088542"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!--left leg -->
+  <joint name="left_hip_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="front_section_link"/>
+    <child link="left_thigh_link"/>
+    <origin rpy="-1.570796 1.570796 0" xyz="0 0.5 0"/>
+    <dynamics friction="0.015" damping="0.3"/>  <!-- Based on simple drop test in Gazebo -->
+    <limit upper="3.14159" lower="-3.14159" effort="100.0" velocity="100.0"/>
+  </joint>
+  <link name="left_thigh_link">
+    <visual>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </collision>
+    <inertial>
+      <mass value="0.25"/>
+      <inertia ixx="0.000396" iyy="0.006039" izz="0.006194"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </inertial>
+  </link>
+  <joint name="left_knee_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="left_thigh_link"/>
+    <child link="left_shin_link"/>
+    <origin rpy="3.14159 0 0" xyz="0.433 0 0"/>
+    <dynamics friction="0.015" damping="0.3"/>  <!-- Based on simple drop test in Gazebo -->
+    <limit upper="3.14159" lower="-3.14159" effort="100.0" velocity="100.0"/>
+  </joint>
+  <link name="left_shin_link">
+    <visual>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </collision>
+    <inertial>
+      <mass value="0.25"/>
+      <inertia ixx="0.000396" iyy="0.006039" izz="0.006194"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </inertial>
+  </link>
+  <joint name="left_ankle_joint" type="fixed">
+    <parent link="left_shin_link"/>
+    <child link="left_foot_link"/>
+    <origin rpy="0 0 0" xyz="0.483 0 0.0381"/>
+  </joint>
+  <link name="left_foot_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.0625"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.0625"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000156" iyy="0.000156" izz="0.000156"
+               ixy="0.0" ixz="0.0" iyz="0.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- right leg -->
+  <joint name="right_hip_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="front_section_link"/>
+    <child link="right_thigh_link"/>
+    <origin rpy="1.570796 1.570796 0" xyz="0 -0.5 0"/>
+    <dynamics friction="0.015" damping="0.3"/>  <!-- Based on simple drop test in Gazebo -->
+    <limit upper="3.14159" lower="-3.14159" effort="100.0" velocity="100.0"/>
+  </joint>
+  <link name="right_thigh_link">
+    <visual>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </collision>
+    <inertial>
+      <mass value="0.25"/>
+      <inertia ixx="0.000396" iyy="0.006039" izz="0.006194"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </inertial>
+  </link>
+  <joint name="right_knee_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="right_thigh_link"/>
+    <child link="right_shin_link"/>
+    <origin rpy="3.14159 0 0" xyz="0.433 0 0"/>
+    <dynamics friction="0.015" damping="0.3"/>  <!-- Based on simple drop test in Gazebo -->
+    <limit upper="3.14159" lower="-3.14159" effort="100.0" velocity="100.0"/>
+  </joint>
+  <link name="right_shin_link">
+    <visual>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.533 0.115 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </collision>
+    <inertial>
+      <mass value="0.25"/>
+      <inertia ixx="0.000396" iyy="0.006039" izz="0.006194"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0.2165 0 0.0381"/>
+    </inertial>
+  </link>
+  <joint name="right_ankle_joint" type="fixed">
+    <parent link="right_shin_link"/>
+    <child link="right_foot_link"/>
+    <origin rpy="0 0 0" xyz="0.483 0 0.0381"/>
+  </joint>
+  <link name="right_foot_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.0625"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.0625"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000156" iyy="0.000156" izz="0.000156"
+               ixy="0.0" ixz="0.0" iyz="0.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- connector -->
+  <joint name="front_section_to_connector_joint" type="fixed">
+    <parent link="front_section_link"/>
+    <child link="connector_link"/>
+    <origin rpy="0 0 0" xyz="-0.125 0 0"/>
+  </joint>
+  <link name="connector_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="1"/>
+      </geometry>
+      <origin rpy="0 1.570796 0" xyz="-0.5 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="1"/>
+      </geometry>
+      <origin rpy="0 1.570796 0" xyz="-0.5 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.083958" iyy="0.083958" izz="0.00125"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 1.570796 0" xyz="-0.5 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- rear 2-wheeled section -->
+  <joint name="connector_joint_to_rear_section_joint" type="fixed">
+    <parent link="connector_link"/>
+    <child link="rear_section_link"/>
+    <origin rpy="0 0 0" xyz="-1 0 0"/>
+  </joint>
+  <link name="rear_section_link">
+    <visual>
+      <geometry>
+        <box size="0.25 1.1 0.5"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.125 0 -0.125"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.25 1.1 0.5"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.125 0 -0.125"/>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.243333" iyy="0.052083" izz="0.212083"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="-0.125 0 -0.125"/>
+    </inertial>
+  </link>
+
+  <!-- left wheel -->
+  <joint name="left_wheel_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="rear_section_link"/>
+    <child link="left_wheel_link"/>
+    <origin rpy="-1.570796 1.570796 0" xyz="-0.125 0.55 -0.25"/>
+    <dynamics friction="0.015" damping="0.1"/>
+    <limit upper="3.14159" lower="-3.14159" effort="100.0" velocity="100.0"/>
+  </joint>
+  <link name="left_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.5" length="0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0361"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.5" length="0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0361"/>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.062984" iyy="0.062984" izz="0.125"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0361"/>
+    </inertial>
+  </link>
+
+  <!-- right wheel -->
+  <joint name="right_wheel_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="rear_section_link"/>
+    <child link="right_wheel_link"/>
+    <origin rpy="1.570796 1.570796 0" xyz="-0.125 -0.55 -0.25"/>
+    <dynamics friction="0.015" damping="0.1"/>
+    <limit upper="3.14159" lower="-3.14159" effort="100.0" velocity="100.0"/>
+  </joint>
+  <link name="right_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.5" length="0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0361"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.5" length="0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0361"/>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.062984" iyy="0.062984" izz="0.125"
+               ixy="0" ixz="0" iyz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0361"/>
+    </inertial>
+  </link>
+
+  <!-- Gazebo definitions - only used in Gazebo simulator -->
+  <!-- front section -->
+  <gazebo reference="front_section_link">
+    <material>Gazebo/Grey</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <!-- left leg -->
+  <gazebo reference="left_hip_joint">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="left_thigh_link">
+    <material>Gazebo/Grey</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="left_knee_joint">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="left_shin_link">
+    <material>Gazebo/Grey</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="left_foot_link">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+    <maxVel>0.5</maxVel>        <!-- Tune for ground contact -->
+    <minDepth>0.002</minDepth>  <!-- Tune for ground contact -->
+  </gazebo>
+  <!-- right leg -->
+  <gazebo reference="right_hip_joint">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="right_thigh_link">
+    <material>Gazebo/Grey</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="right_knee_joint">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="right_shin_link">
+    <material>Gazebo/Grey</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="right_foot_link">
+    <material>Gazebo/Black</material>
+    <selfCollide>True</selfCollide>
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+    <maxVel>0.5</maxVel>        <!-- Tune for ground contact -->
+    <minDepth>0.002</minDepth>  <!-- Tune for ground contact -->
+  </gazebo>
+  <!-- connector -->
+  <gazebo reference="connector_link">
+    <material>Gazebo/Red</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <!-- rear section -->
+  <gazebo reference="rear_section_link">
+    <material>Gazebo/Grey</material>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+  </gazebo>
+  <!-- left wheel -->
+  <gazebo reference="left_wheel_joint">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="left_wheel_link">
+    <material>Gazebo/Grey</material>
+    <selfCollide>True</selfCollide>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+    <maxVel>1</maxVel>        <!-- Tune for ground contact -->
+    <minDepth>0.001</minDepth>  <!-- Tune for ground contact -->
+  </gazebo>
+  <!-- right wheel -->
+  <gazebo reference="right_wheel_joint">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="right_wheel_link">
+    <material>Gazebo/Grey</material>
+    <selfCollide>True</selfCollide>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>10000000.0</kp>
+    <kd>1.0</kd>
+    <maxVel>1</maxVel>        <!-- Tune for ground contact -->
+    <minDepth>0.001</minDepth>  <!-- Tune for ground contact -->
+  </gazebo>
+
+  <!-- gazebo plugins -->
+  <!-- left leg -->
+  <gazebo>
+    <plugin name="boilerplate_motor_plugin"
+            filename="libboilerplate_motor_plugin.so">
+      <actuatorJoint>left_hip_joint</actuatorJoint>
+      <maxTorque>20.0</maxTorque>
+      <posPidPGain>20.0</posPidPGain>
+      <posPidIGain>0.0</posPidIGain>
+      <posPidDGain>2.5</posPidDGain>
+      <posPidIMax>0.0</posPidIMax>
+      <posPidIMin>-0.0</posPidIMin>
+      <initialPosition>0.0</initialPosition>
+      <cmdPosTopic>leftleg_to_hip</cmdPosTopic>
+      <anglePosTopic>hip_to_leftleg</anglePosTopic>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin name="boilerplate_motor_plugin"
+            filename="libboilerplate_motor_plugin.so">
+      <actuatorJoint>left_knee_joint</actuatorJoint>
+      <maxTorque>20.0</maxTorque>
+      <posPidPGain>20.0</posPidPGain>
+      <posPidIGain>0.0</posPidIGain>
+      <posPidDGain>2.5</posPidDGain>
+      <posPidIMax>0.0</posPidIMax>
+      <posPidIMin>-0.0</posPidIMin>
+      <initialPosition>0.0</initialPosition>
+      <cmdPosTopic>leftleg_to_knee</cmdPosTopic>
+      <anglePosTopic>knee_to_leftleg</anglePosTopic>
+    </plugin>
+  </gazebo>
+  <!-- right leg -->
+  <gazebo>
+    <plugin name="boilerplate_motor_plugin"
+            filename="libboilerplate_motor_plugin.so">
+      <actuatorJoint>right_hip_joint</actuatorJoint>
+      <maxTorque>20.0</maxTorque>
+      <posPidPGain>20.0</posPidPGain>
+      <posPidIGain>0.0</posPidIGain>
+      <posPidDGain>2.5</posPidDGain>
+      <posPidIMax>0.0</posPidIMax>
+      <posPidIMin>-0.0</posPidIMin>
+      <initialPosition>0.0</initialPosition>
+      <cmdPosTopic>rightleg_to_hip</cmdPosTopic>
+      <anglePosTopic>hip_to_rightleg</anglePosTopic>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin name="boilerplate_motor_plugin"
+            filename="libboilerplate_motor_plugin.so">
+      <actuatorJoint>right_knee_joint</actuatorJoint>
+      <maxTorque>20.0</maxTorque>
+      <posPidPGain>20.0</posPidPGain>
+      <posPidIGain>0.0</posPidIGain>
+      <posPidDGain>2.5</posPidDGain>
+      <posPidIMax>0.0</posPidIMax>
+      <posPidIMin>-0.0</posPidIMin>
+      <initialPosition>0.0</initialPosition>
+      <cmdPosTopic>rightleg_to_knee</cmdPosTopic>
+      <anglePosTopic>knee_to_rightleg</anglePosTopic>
+    </plugin>
+  </gazebo>
+
+</robot>

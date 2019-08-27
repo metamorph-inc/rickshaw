@@ -1,0 +1,23 @@
+<launch>
+  <!-- Start FSM nodes -->
+  <!-- leg FSMs -->
+  <!-- front left leg -->
+  <node name="frontleftleg" pkg="rickshaw_description" type="rickshaw_two_dof_leg_fsm_node.py" output="screen" launch-prefix="xterm -e"
+        args="-side left -thigh_len 0.433 -shin_len 0.5455 -num_traj_pts 10
+              -from_hip from_frontlefthip -to_hip to_frontlefthip
+              -from_knee from_frontleftknee -to_knee to_frontleftknee
+              -from_master to_frontleftleg -to_master from_frontleftleg" />
+  <!-- front right leg -->
+  <node name="frontrightleg" pkg="rickshaw_description" type="rickshaw_two_dof_leg_fsm_node.py" output="screen" launch-prefix="xterm -e"
+        args="-side right -thigh_len 0.433 -shin_len 0.5455 -num_traj_pts 10
+              -from_hip from_frontrighthip -to_hip to_frontrighthip
+              -from_knee from_frontrightknee -to_knee to_frontrightknee
+              -from_master to_frontrightleg -to_master from_frontrightleg" />
+
+  <!-- movement -->
+  <node name="movement" pkg="rickshaw_description" type="rickshaw_movement_fsm_node.py" output="screen" 
+        args="-thigh_len 0.433 -shin_len 0.5455 -from_master_gait a
+              -from_master_direction b -from_leftleg from_frontleftleg
+              -to_leftleg to_frontleftleg -from_rightleg from_frontrightleg
+              -to_rightleg to_frontrightleg" />
+</launch>
